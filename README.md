@@ -1,4 +1,4 @@
-# X11 Pod
+# Electron Pod
 
 A base docker image to run Electron GUI application.
 
@@ -23,10 +23,13 @@ docker run \
     -e VIDEO_GID="$(getent group video | cut -d: -f3)" \
     -e GID="$(id -g)" \
     -e UID="$(id -u)" \
+    -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native \
+    -e PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native \
     --userns keep-id\
     --ipc host \
     -e HTTP_PROXY="" \
     -e HTTPS_PROXY="" \
+    $@ \
     "naturalselect/electronpod:latest"
 ```
 
